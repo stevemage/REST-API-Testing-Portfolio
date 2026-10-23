@@ -1,0 +1,65 @@
+$kind: http-request
+url: https://postman-echo.com/get?device=laser&mode=test
+method: GET
+queryParams:
+  device: laser
+  mode: test
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"HTTP status is 200\", function () {\r
+
+      \    pm.expect(pm.response.code).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response body contains args\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.have.property(\"args\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args is object\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args).to.be.a(\"object\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args.device is string\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args.device).to.be.a(\"string\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args.mode is string\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args.mode).to.be.a(\"string\");\r
+
+      });\r
+
+      \r
+
+      \r
+
+      \r
+
+      \r
+
+      \r\n"
+    language: text/javascript
+order: 3000

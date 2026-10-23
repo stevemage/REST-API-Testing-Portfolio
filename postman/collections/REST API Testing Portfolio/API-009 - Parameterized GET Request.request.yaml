@@ -1,0 +1,51 @@
+$kind: http-request
+url: https://postman-echo.com/get?device={{device}}&mode={{mode}}
+method: GET
+queryParams:
+  device: "{{device}}"
+  mode: "{{mode}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"HTTP status is 200\", function () {\r
+
+      \    pm.expect(pm.response.code).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args.device corresponds to var device\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    const expectedDevice = pm.collectionVariables.get(\"device\");\r
+
+      \    pm.expect(jsonData.args.device).to.eql(expectedDevice);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args.mode corresponds to var mode\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    const expectedMode = pm.collectionVariables.get(\"mode\");\r
+
+      \    pm.expect(jsonData.args.mode).to.eql(expectedMode);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"args.device and args.mode are strings\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args.device).to.be.a(\"string\");\r
+
+      \    pm.expect(jsonData.args.mode).to.be.a(\"string\");\r
+
+      });"
+    language: text/javascript
+order: 4000

@@ -1,0 +1,43 @@
+$kind: http-request
+url: https://postman-echo.com/get?device=laser&mode=test
+method: GET
+queryParams:
+  device: laser
+  mode: test
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"HTTP status is 200\", function () {\r
+
+      \    pm.expect(pm.response.code).to.eql(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response body contains expected device argument\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args).to.have.property(\"device\", \"laser\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response body contains expected mode argument\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.args).to.have.property(\"mode\", \"test\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response time is less than 2000ms\", function () {\r
+
+      \    pm.expect(pm.response.responseTime).to.be.below(2000);\r
+
+      });"
+    language: text/javascript
+order: 1000
